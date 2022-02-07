@@ -20,9 +20,9 @@
     <nav class="navbar navbar-dark header">
       <div class="container">
         <a class="navbar-brand" href="#">CLUB SOCIAL</a>
-        <button class="myButton" onclick="window.location.href='pages/'">Noticias</button>
-        <button class="myButton" onclick="window.location.href='pages/'">Instalaciones</button>
-        <button class="myButton" onclick="window.location.href='pages/'">Eventos</button>
+        <button class="myButton" onclick="window.location.href='../../php/noticias.php'">Noticias</button>
+        <button class="myButton" onclick="window.location.href='../../php/'">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='../../php/eventos.php'">Eventos</button>
         <?php
           include_once "../php/databaseManagement.inc.php";
             $id=$_GET['id_socio'];
@@ -31,7 +31,7 @@
            $result = $query->fetch(PDO::FETCH_ASSOC);
 
            if($result["esPresidente"]){
-            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick="window.location.href=login.html  ">Panel de Control</button>';
+            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php"  ">Panel de Control</button>';
             echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
            }else{
             echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';

@@ -96,4 +96,44 @@ function insertaNoticia($titular,$contenido,$fecha,$privacidad){
     return $id;
 }
 
+
+function obtenerNoticias(){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT id_noticia, titular from noticias;");
+          $sql->execute();
+          $miArray = [];
+           while ($row = $sql->fetch(PDO::FETCH_ASSOC)) { //Haciendo uso de PDO iremos creando el array dinámicamente
+               $miArray[] = $row; //https://www.it-swarm-es.com/es/php/rellenar-php-array-desde-while-loop/972445501/
+           }
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      return $miArray;
+}
+
+function editarNoticia($id, $titular, $contenido, $privacidad)
+{
+    $retorno = false;
+    $fecha=("d-m-Y H:i");
+    try {
+        $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+        $sql = $con->prepare("UPDATE noticias  set titular=:titular, content=:content, fecha=:fecha, privacidad=:privacidad where id_noticia=:id_noticia;");
+        $sql->bindParam(":id_noticia", $id);
+        $sql->bindParam(":titular", $titular);
+        $sql->bindParam(":content", $contenido);
+        $sql->bindParam(":fecha", $fecha);
+        $sql->bindParam(":privacidad", $privacidad);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $retorno = true;
+        }
+    } catch (PDOException $e) {
+        echo $e;
+    }
+    $con = null;
+    return $retorno;
+}
 ?>
