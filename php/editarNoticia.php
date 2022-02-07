@@ -97,9 +97,9 @@
     $ncontenido=$_POST["ncontenido"];
     $date=date("d-m-Y H:i");
     if (isset($_POST['nprivacidad'])){
-        $nprivacidad="0";
+        $nprivacidad="1";
         }else{
-            $nprivacidad="1";
+            $nprivacidad="0";
         }
     editarNoticia($id,$ntitular,$ncontenido,$nprivacidad);
 

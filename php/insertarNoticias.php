@@ -83,7 +83,7 @@ if(isset($_POST['titular']) && isset($_POST['contenido'])){
     if(!isset($_POST['privacidad'])){
         $privacidad=0;
     }else{
-        $privacidad = ($_POST['privacidad']);
+        $privacidad = 1;
     }
     $fecha=date("d-m-Y H:i");
     insertaNoticia($titulo,$contenido,$fecha,$privacidad);

@@ -31,10 +31,13 @@
 <main>
   <section class="my-3">
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="../php/editarNoticia.php">Editar Noticias</a>
+        <a class="botonControl" href="../php/editarNoticia.php">Editar Noticia</a>
       </div>
       <div class="bg-light p-5 rounded">
         <a class="botonControl" href="../php/insertarNoticias.php">Insertar Noticias</a>
+      </div>
+      <div class="bg-light p-5 rounded">
+        <a class="botonControl" href="../php/deleteNoticia.php">Borrar Noticia</a>
       </div>
   </section>
 

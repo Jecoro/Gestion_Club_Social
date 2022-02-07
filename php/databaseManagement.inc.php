@@ -117,7 +117,7 @@ function obtenerNoticias(){
 function editarNoticia($id, $titular, $contenido, $privacidad)
 {
     $retorno = false;
-    $fecha=("d-m-Y H:i");
+    $fecha=date("d-m-Y H:i");
     try {
         $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
         $sql = $con->prepare("UPDATE noticias  set titular=:titular, content=:content, fecha=:fecha, privacidad=:privacidad where id_noticia=:id_noticia;");
@@ -135,5 +135,50 @@ function editarNoticia($id, $titular, $contenido, $privacidad)
     }
     $con = null;
     return $retorno;
+}
+
+function obtenerNoticia($id){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT id_noticia, titular from noticias where id_noticia= :id;");
+          $sql->bindParam(":id", $id);
+          $sql->execute();
+          $row = $sql->fetch(PDO::FETCH_ASSOC); //Recibimos la linea correspondiente en ROW
+        $con = null; //Cerramos la conexión
+        if($row!=null){
+            return true;
+        }else{
+            return false;
+        }
+           
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      
+}
+
+function borrarNoticia($id){
+    
+  
+    try{
+          $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("DELETE from noticias where id_noticia= :id");
+          $sql->bindParam(":id", $id);
+          $sql->execute();
+                      
+          if(!obtenerNoticia($id)){
+            echo "<script type='text/javascript'>
+                    alert('Noticia Borrrada Correctamente');
+                  </script>";
+            
+          }
+           
+        
+    }catch (PDOException $e) {
+        echo $e;
+    }
+   
 }
 ?>
