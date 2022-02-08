@@ -51,9 +51,9 @@
            if($result["esPresidente"]){
            // echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick="window.location.href='.'panelAdmin.php/?id_socio='.$id.'">Panel de Control</button>';
            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php/?id_socio='.$id.'">Panel de Control</button>';
-            echo'<button class="myButton botonLogIn" onclick="window.location.href="index.php"'.'>Cerrar Sesion</button>';
+           echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
            }else{
-            echo'<button class="myButton botonLogIn" onclick="window.location.href="index.php"'.'>Cerrar Sesion</button>';
+            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
            }
            
           } 
