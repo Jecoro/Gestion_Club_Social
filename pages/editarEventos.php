@@ -11,20 +11,43 @@
     <link rel="stylesheet" href="../css/index.css">
   </head>
   <style>
-  <?php include '../css/index.css'; ?>
+  <?php include '../css/index.css';
+        include '../css/bootstrap.min.css';
+  ?>
 </style>
   <body>
  <section class="cuerpo">
 <header>
-  <nav class="navbar navbar-dark header">
+<nav class="navbar navbar-dark header">
       <div class="container">
-          <a class="navbar-brand" href='../pages/login.php'>CLUB SOCIAL</a>
-          <button  class="myButton" onclick="window.location.href='noticias.php'">Noticias</button>
-          <button  class="myButton" onclick="window.location.href='instalaciones.php'">Instalaciones</button>
-          <button  class="myButton" onclick="window.location.href='eventos.php'">Eventos</button>
-          <button  class="myButton botonLogIn" onclick="window.location.href='../pages/login.html'">Log-In</button>
+      <?php
+          
+          include_once "/databaseManagement.inc.php";
+          $id=$_GET['id_socio'];
+      ?>
+        <a class="navbar-brand" href="#">CLUB SOCIAL</a>
+        <button class="myButton" onclick="window.location.href='..//noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
+        <button class="myButton" onclick="window.location.href='..//'">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='..//eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <?php
+          
+          include_once "/databaseManagement.inc.php";
+          $id=$_GET['id_socio'];
+           $query = $connection->prepare("SELECT * FROM usuarios WHERE id_socio='$id'");
+           $query->execute();
+           $result = $query->fetch(PDO::FETCH_ASSOC);
+           
+
+           if($result["esPresidente"]){
+            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php"  ">Panel de Control</button>';
+            echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
+           }else{
+            echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
+           }
+        ?>
+        
       </div>
-  </nav>
+    </nav>
 </header>
 
 <main>
