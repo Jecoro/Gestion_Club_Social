@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
             $_SESSION['password'] =  $result['password'];
             
             header("Status: 301 Moved Permanently");
-            header("Location: ../pages/index-logged.php/?id_socio=".$_SESSION["user_id"]);
+            header("Location:index-logged.php/?id_socio=".$_SESSION["user_id"]);
 
            
         } else {

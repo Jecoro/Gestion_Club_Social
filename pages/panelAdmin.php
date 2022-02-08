@@ -23,16 +23,25 @@
       <?php
           
           include_once "databaseManagement.inc.php";
-          $id=$_GET['id_socio'];
+          if(isset($_GET['id_socio'])){
+            $id=$_GET['id_socio'];
+            }else{
+              $id=null;}
       ?>
-        <a class="navbar-brand" href="#">CLUB SOCIAL</a>
-        <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
+        <a class="navbar-brand" href='index-logged.php<?php echo('/?id_socio='.$id)  ?>'>CLUB SOCIAL</a>
+        <button class="myButton" onclick="window.location.href='../noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
         <button class="myButton" onclick="window.location.href=''">Instalaciones</button>
-        <button class="myButton" onclick="window.location.href='eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <button class="myButton" onclick="window.location.href='../eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
           include_once "databaseManagement.inc.php";
+          if(isset($_GET['id_socio'])){
           $id=$_GET['id_socio'];
+          }else{
+            $id=null;
+            echo'<button class="myButton botonLogIn" onclick='.'window.location.href="login.html"'.'>Log In</button>';
+          }
+          if($id!=null){
            $query = $connection->prepare("SELECT * FROM usuarios WHERE id_socio='$id'");
            $query->execute();
            $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -40,26 +49,31 @@
 
            if($result["esPresidente"]){
             echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="panelAdmin.php"  ">Panel de Control</button>';
-            echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
+            echo'<button class="myButton botonLogIn" onclick='.'window.location.href="login.html"'.'>Cerrar Sesion</button>';
            }else{
-            echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
+            echo'<button class="myButton botonLogIn" onclick='.'window.location.href="login.html"'.'>Cerrar Sesion</button>';
            }
+           
+          } 
         ?>
-        
-      </div>
-    </nav>
 </header>
 
 <main>
   <section class="my-3">
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="editarNoticia.php">Editar Noticia</a>
+        <a class="botonControl" href="editarNoticia.php<?php echo('/?id_socio='.$id)  ?>">Editar Noticia</a>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="botonControl" href="editarEventos.php<?php echo('/?id_socio='.$id)  ?>">Editar Evento</a>
       </div>
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="insertarNoticias.php">Insertar Noticias</a>
+        <a class="botonControl" href="insertarNoticias.php<?php echo('/?id_socio='.$id)  ?>">Insertar Noticias</a>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="botonControl" href="crearEvento.php<?php echo('/?id_socio='.$id)  ?>">Insertar Evento</a>
       </div>
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="deleteNoticia.php">Borrar Noticia</a>
+        <a class="botonControl" href="deleteNoticia.php<?php echo('/?id_socio='.$id)  ?>">Borrar Noticia</a>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="botonControl" href="borrarEvento.php<?php echo('/?id_socio='.$id)  ?>">Borrar Evento</a>
       </div>
   </section>
 
