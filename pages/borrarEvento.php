@@ -1,5 +1,7 @@
+
+<html>
 <head>
-    <title>Borrar Noticia</title>
+    <title>Borrar Evento</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,21 +11,44 @@
     <link rel="stylesheet" href="../css/index.css">
   </head>
   <style>
-  <?php include '../css/index.css'; ?>
+  <?php include '../css/index.css';
+        include '../css/bootstrap.min.css';
+  ?>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <body>
  <section class="cuerpo">
 <header>
-  <nav class="navbar navbar-dark header">
+<nav class="navbar navbar-dark header">
       <div class="container">
-          <a class="navbar-brand" href="../index.html">CLUB SOCIAL</a>
-          <button  class="myButton" onclick="window.location.href='noticias.php'">Noticias</button>
-          <button  class="myButton" onclick="window.location.href='instalaciones.php'">Instalaciones</button>
-          <button  class="myButton" onclick="window.location.href='eventos.php'">Eventos</button>
-          <button  class="myButton botonLogIn" onclick="window.location.href='../pages/login.html'">Log-In</button>
+      <?php
+          
+          include_once "/databaseManagement.inc.php";
+          $id=$_GET['id_socio'];
+      ?>
+        <a class="navbar-brand" href="#">CLUB SOCIAL</a>
+        <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
+        <button class="myButton" onclick="window.location.href='php/'">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='php/eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <?php
+          
+          include_once "databaseManagement.inc.php";
+          $id=$_GET['id_socio'];
+           $query = $connection->prepare("SELECT * FROM usuarios WHERE id_socio='$id'");
+           $query->execute();
+           $result = $query->fetch(PDO::FETCH_ASSOC);
+           
+
+           if($result["esPresidente"]){
+            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php"  ">Panel de Control</button>';
+            echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
+           }else{
+            echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
+           }
+        ?>
+        
       </div>
-  </nav>
+    </nav>
 </header>
 
 <main>
@@ -31,14 +56,14 @@
       <div class="bg-light p-5 rounded">
       <form method="post" action="">
         <fieldset>
-            <select id="idnoticia" name="idnoticia" required>
+            <select id="idEvento" name="idEvento" required>
                 <?php 
                  include_once "databaseManagement.inc.php";
-                 $datos=obtenerNoticias();
+                 $datos=obtenerEventos();
                     
                     for ($i=0; $i <count($datos) ; $i++) { 
                   
-                     echo "<option value=".$datos[$i]["id_noticia"].">".$datos[$i]["titular"]."</option><br>";
+                     echo "<option value=".$datos[$i]["id"].">".$datos[$i]["nombre"]."</option><br>";
                         
                     }
                 
@@ -55,10 +80,10 @@
             include_once "databaseManagement.inc.php";
                 if(isset($_POST["submit"])){
 
-                $id=$_POST["idnoticia"];
+                $id=$_POST["idEvento"];
     
-                 borrarNoticia($id);   
-                    
+                 borrarEvento($id);   
+                 echo("<meta http-equiv='refresh' content='1'>"); //Refresh by HTTP 'meta'   
             }
             
         ?>
@@ -87,15 +112,3 @@
   
   
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

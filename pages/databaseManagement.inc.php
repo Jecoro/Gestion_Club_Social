@@ -181,4 +181,89 @@ function borrarNoticia($id){
     }
    
 }
+
+function obtenerEventos(){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT id,nombre from eventos;");
+          $sql->execute();
+          $miArray = [];
+           while ($row = $sql->fetch(PDO::FETCH_ASSOC)) { //Haciendo uso de PDO iremos creando el array dinámicamente
+               $miArray[] = $row; //https://www.it-swarm-es.com/es/php/rellenar-php-array-desde-while-loop/972445501/
+           }
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      return $miArray;
+}
+
+function obtenerEvento($id){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT id, nombre from eventos where id= :id;");
+          $sql->bindParam(":id", $id);
+          $sql->execute();
+          $row = $sql->fetch(PDO::FETCH_ASSOC); //Recibimos la linea correspondiente en ROW
+        $con = null; //Cerramos la conexión
+        
+        
+           
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      return $row;
+}
+function borrarEvento($id){
+    
+  
+    try{
+          $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("DELETE from eventos where id= :id");
+          $sql->bindParam(":id", $id);
+          $sql->execute();
+                      
+          if(!obtenerEvento($id)){
+            echo "<script type='text/javascript'>
+                    alert('Evento Borrrado Correctamente');
+                  </script>";
+            
+          }
+           
+        
+    }catch (PDOException $e) {
+        echo $e;
+    }
+   
+}
+
+function editarEvento($id, $nombre, $lugar, $fecha,$participantes,$id_usuario_creador,$hora){   
+    
+    $retorno = false;
+    $fecha=date("d-m-Y H:i");
+    try {
+        $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+        $sql = $con->prepare("UPDATE eventos  set nombre=:nombre, lugar=:lugar,fecha=:fecha,participantes=:participantes,id_usuario_creador=:id_usuario_creador,hora=:hora where id=:id;");
+        $sql->bindParam(":id", $id);
+        $sql->bindParam(":nombre", $nombre);
+        $sql->bindParam(":lugar", $lugar);
+        $sql->bindParam(":fecha", $fecha);
+        $sql->bindParam(":participantes", $participantes);
+        $sql->bindParam(":id_usuario_creador", $id_usuario_creador);
+        $sql->bindParam(":hora", $hora);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $retorno = true;
+        }
+    } catch (PDOException $e) {
+        echo $e;
+    }
+    $con = null;
+    return $retorno;
+}
+
+
 ?>

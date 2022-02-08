@@ -19,9 +19,9 @@
   <nav class="navbar navbar-dark header">
       <div class="container">
           <a class="navbar-brand" href="#">CLUB SOCIAL</a>
-          <button  class="myButton" onclick="window.location.href='../php/noticias.php'">Noticias</button>
-          <button  class="myButton" onclick="window.location.href='pages/'">Instalaciones</button>
-          <button  class="myButton" onclick="window.location.href='pages/'">Eventos</button>
+          <button  class="myButton" onclick="window.location.href='noticias.php'">Noticias</button>
+          <button  class="myButton" onclick="window.location.href=''">Instalaciones</button>
+          <button  class="myButton" onclick="window.location.href='eventos.php'">Eventos</button>
           <button  class="myButton botonLogIn" onclick="window.location.href='login.html'">Log-In</button>
       </div>
   </nav>
@@ -79,14 +79,14 @@
   <section class="my-3">
       <div class="bg-light p-5 rounded">
           <div class="col-sm-8 mx-auto">
-              <h1>Section 3</h1>
+              <h1>&nbsp </h1>
           </div>
       </div>
   </section>
   <section>
       <div class="bg-light p-5 rounded">
           <div class="col-sm-8 mx-auto">
-              <h1>...</h1>
+              <h1>&nbsp </h1>
           </div>
       </div>
   </section>

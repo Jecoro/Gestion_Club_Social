@@ -1,7 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Control Panel</title>
+<html>
+<head>
+    <title>Borrar Noticia</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,12 +8,13 @@
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css">
-    <style>
-        <?php include '../css/index.css';
-         include '../css/bootstrap.min.css'; ?>
-    </style>
-
   </head>
+  <style>
+  <?php include '../css/index.css';
+        include '../css/bootstrap.min.css';
+  ?>
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <body>
  <section class="cuerpo">
 <header>
@@ -22,16 +22,16 @@
       <div class="container">
       <?php
           
-          include_once "databaseManagement.inc.php";
+          include_once "/databaseManagement.inc.php";
           $id=$_GET['id_socio'];
       ?>
         <a class="navbar-brand" href="#">CLUB SOCIAL</a>
-        <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
-        <button class="myButton" onclick="window.location.href=''">Instalaciones</button>
-        <button class="myButton" onclick="window.location.href='eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <button class="myButton" onclick="window.location.href='..//noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
+        <button class="myButton" onclick="window.location.href='..//'">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='..//eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
-          include_once "databaseManagement.inc.php";
+          include_once "/databaseManagement.inc.php";
           $id=$_GET['id_socio'];
            $query = $connection->prepare("SELECT * FROM usuarios WHERE id_socio='$id'");
            $query->execute();
@@ -39,7 +39,7 @@
            
 
            if($result["esPresidente"]){
-            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="panelAdmin.php"  ">Panel de Control</button>';
+            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php"  ">Panel de Control</button>';
             echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
            }else{
             echo'<button class="myButton botonLogIn" onclick="window.location.href=login.html">Cerrar Sesion</button>';
@@ -53,19 +53,46 @@
 <main>
   <section class="my-3">
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="editarNoticia.php">Editar Noticia</a>
-      </div>
-      <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="insertarNoticias.php">Insertar Noticias</a>
-      </div>
-      <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="deleteNoticia.php">Borrar Noticia</a>
+      <form method="post" action="">
+        <fieldset>
+            <select id="idnoticia" name="idnoticia" required>
+                <?php 
+                 include_once "databaseManagement.inc.php";
+                 $datos=obtenerNoticias();
+                    
+                    for ($i=0; $i <count($datos) ; $i++) { 
+                  
+                     echo "<option value=".$datos[$i]["id_noticia"].">".$datos[$i]["titular"]."</option><br>";
+                        
+                    }
+                
+                ?>
+
+            </select> 
+                
+            <br>        
+              
+            <p id="confirmarBoton" ><input type="submit" name="submit" value="Borrar"></p>
+        </fieldset>
+        <?php 
+
+            include_once "databaseManagement.inc.php";
+                if(isset($_POST["submit"])){
+
+                $id=$_POST["idnoticia"];
+    
+                 borrarNoticia($id);   
+                 echo("<meta http-equiv='refresh' content='1'>"); //Refresh by HTTP 'meta'   
+            }
+            
+        ?>
+      </form>
       </div>
   </section>
 
 </main>
 
-<footer class="py-3 my-4 bg-secondary fixed-bottom ">
+<footer class="py-3 my-4 bg-secondary ">
   <ul class="nav justify-content-center border-bottom pb-3 mb-3">
     <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
     <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
@@ -81,4 +108,18 @@
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   </section>
   </body>
+  
+  
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Editar Noticia</title>
+    <title>Editar Eventos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
 <header>
   <nav class="navbar navbar-dark header">
       <div class="container">
-          <a class="navbar-brand" href='../pages/login.html'>CLUB SOCIAL</a>
+          <a class="navbar-brand" href='../pages/login.php'>CLUB SOCIAL</a>
           <button  class="myButton" onclick="window.location.href='noticias.php'">Noticias</button>
           <button  class="myButton" onclick="window.location.href='instalaciones.php'">Instalaciones</button>
           <button  class="myButton" onclick="window.location.href='eventos.php'">Eventos</button>
@@ -31,34 +31,36 @@
   <section class="my-3">
       <div class="bg-light p-5 rounded">
       <form method="post" action="">
+    
         <fieldset>
-            <select id="idnoticia" name="idnoticia" required>
+            <select id="id" name="id" required>
                 <?php 
                  include_once "databaseManagement.inc.php";
-                 $datos=obtenerNoticias();
+                 $datos=obtenerEventos();
                     
                     for ($i=0; $i <count($datos) ; $i++) { 
                   
-                     echo "<option value=".$datos[$i]["id_noticia"].">".$datos[$i]["titular"]."</option><br>";
+                     echo "<option value=".$datos[$i]["id"].">".$datos[$i]["nombre"]."</option><br>";
                  
                     }
                 ?>
 
             </select>    
             <p>
-                <label> Nuevo Titular de la Noticia
-                <input type="text" id= "ntitular"name="ntitular" required/>
+                <label> Nuevo Nombre
+                <input type="text" id= "nNombre"name="nNombre" required/>
             </label>
             </p>
             <p>
-                <label> Nuevo Contenido de la Noticia:
-                    <textarea id="ncontenido" name="ncontenido" rows="10" cols="40" required></textarea>
+                <label> Nuevo lugar:
+                    <textarea id="nLugar" name="nLugar" rows="10" cols="40" required></textarea>
             </label>
             </p>
             <p>
-                <label> Noticia privada:
-                <input type="checkbox" id= "nprivacidad"name="nprivacidad"/>
-            </label>
+            <label> Fecha:<input type="date" name="fecha_evento" id=""></label>
+            </p>
+            <p>
+            <label>Hora:<input type="text" name="hora_evento" id=""></label>
             </p>
             <p><input type="submit" name="submit" value="Editar"></p>
 
@@ -88,24 +90,33 @@
   </body>
   
   <?php 
+    
+
  include_once "databaseManagement.inc.php";
 
-    if(isset($_POST["submit"])){
-
-    $id=$_POST["idnoticia"];
-    $ntitular= $_POST["ntitular"];
-    $ncontenido=$_POST["ncontenido"];
-    $date=date("d-m-Y H:i");
-    if (isset($_POST['nprivacidad'])){
-        $nprivacidad="1";
-        }else{
-            $nprivacidad="0";
-        }
-    editarNoticia($id,$ntitular,$ncontenido,$nprivacidad);
+ if(isset($_POST["submit"])){
+    $id=$_POST["id"];
+    $nNombre= $_POST["nNombre"];
+    $nLugar=$_POST["nLugar"];
+    $date=date("d-m-Y");
+    $hora=date( "H:i");
+    $servidor = "localhost";
+    $baseDatos = "clubsocial";
+    $usuario = "root";
+    $pass = "root";
+    
+    $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['pass']);
+    
+       $query = $con->prepare("SELECT * FROM eventos WHERE id =$id;");
+       $query->execute();
+       $miArray=[];
+       while ($row = $query->fetch(PDO::FETCH_ASSOC)) { //Haciendo uso de PDO iremos creando el array dinámicamente
+          
+          $miArray[] = $row; //https://www.it-swarm-es.com/es/php/rellenar-php-array-desde-while-loop/972445501/
+      }
+    editarEvento($id,$nNombre,$nLugar,$date,$miArray[0]["participantes"],$miArray[0]["id_usuario_creador"],$hora);
 
 }
 
 ?>
 </html>
-
-
