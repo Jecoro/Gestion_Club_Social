@@ -39,6 +39,41 @@ function obtenerUsuario($email){
         echo $e;
     }
 }
+function obtenerUsuarios(){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT * from usuarios;");
+          $sql->execute();
+          $miArray = [];
+           while ($row = $sql->fetch(PDO::FETCH_ASSOC)) { //Haciendo uso de PDO iremos creando el array dinámicamente
+               $miArray[] = $row; //https://www.it-swarm-es.com/es/php/rellenar-php-array-desde-while-loop/972445501/
+           }
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      return $miArray;
+}
+function activarUsuario($id)
+{
+    $retorno = false;
+    $fecha=date("d-m-Y H:i");
+    try {
+        $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+        $sql = $con->prepare("UPDATE usuarios  set esSocio=1 where id_socio=:id;");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $retorno = true;
+        }
+    } catch (PDOException $e) {
+        echo $e;
+    }
+    $con = null;
+    return $retorno;
+}
+
 
 function eliminarUsuario($id){
     $retorno = false;
@@ -265,5 +300,79 @@ function editarEvento($id, $nombre, $lugar, $fecha,$participantes,$id_usuario_cr
     return $retorno;
 }
 
+function obtenerPista($id){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT id_pista, nombre_pista from instalaciones where id= :id_pista;");
+          $sql->bindParam(":id_pista", $id);
+          $sql->execute();
+          $row = $sql->fetch(PDO::FETCH_ASSOC); //Recibimos la linea correspondiente en ROW
+        $con = null; //Cerramos la conexión
+        
+        
+           
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      return $row;
+}
+
+function obtenerPistas(){
+    
+    try {
+           $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("SELECT id_pista, nombre_pista from instalaciones;");
+          $sql->execute();
+          $miArray = [];
+           while ($row = $sql->fetch(PDO::FETCH_ASSOC)) { //Haciendo uso de PDO iremos creando el array dinámicamente
+               $miArray[] = $row; //https://www.it-swarm-es.com/es/php/rellenar-php-array-desde-while-loop/972445501/
+           }
+       } catch (PDOException $e) {
+           echo $e;
+       }
+      $con = null;
+      return $miArray;
+}
+function borrarPista($id){
+    
+  
+    try{
+          $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+          $sql = $con->prepare("DELETE from instalaciones where id_pista= :id_pista");
+          echo $id;
+          $sql->bindParam(":id_pista", $id);
+          $sql->execute();
+                      
+          if(!obtenerPista($id)){
+            echo "<script type='text/javascript'>
+                    alert('Pista Borrrada Correctamente');
+                  </script>";
+            
+          }
+           
+        
+    }catch (PDOException $e) {
+        echo $e;
+    }
+   
+}
+function insertaPista($tipo,$precio_pista,$nombre_pista,$precio_noSocio){
+    try {
+        $con = new PDO("mysql:host=" . $GLOBALS['servidor'] . ";dbname=" . $GLOBALS['baseDatos'], $GLOBALS['usuario'], $GLOBALS['password']);
+        $sql = $con->prepare("INSERT into instalaciones values(null,:tipo,:precio_pista,:nombre_pista,:precio_noSocio)");
+        $sql->bindParam(":tipo", $tipo);
+        $sql->bindParam(":precio_pista", $precio_pista);
+        $sql->bindParam(":nombre_pista", $nombre_pista);
+        $sql->bindParam(":precio_noSocio", $precio_noSocio);
+        $sql->execute();
+        $id = $con->lastInsertId();
+    } catch (PDOException $e) {
+        echo $e;
+    }
+    $con = null;
+    
+}
 
 ?>

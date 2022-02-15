@@ -1,7 +1,7 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Borrar Evento</title>
+    <title>Editar Noticia</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,6 @@
         include '../css/bootstrap.min.css';
   ?>
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <body>
  <section class="cuerpo">
  <header>
@@ -32,7 +31,7 @@
         <a class="navbar-brand" href="#">CLUB SOCIAL</a>
         <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
         <button class="myButton" onclick="window.location.href='instalaciones.php<?php echo('/?id_socio='.$id)  ?>'">Instalaciones</button>
-        <button class="myButton" onclick="window.location.href='ventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <button class="myButton" onclick="window.location.href='eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
           include_once "databaseManagement.inc.php";
@@ -68,41 +67,26 @@
       <div class="bg-light p-5 rounded">
       <form method="post" action="">
         <fieldset>
-            <select id="idEvento" name="idEvento" required>
+            <table>
                 <?php 
                  include_once "databaseManagement.inc.php";
-                 $datos=obtenerEventos();
-                    
+                 if(isset($_GET['id_socio'])){
+                   $id=$_GET['id_socio'];
+                   }else{
+                     $id=null;}
+                 $datos=obtenerUsuarios();
+                    //$id=$_GET['id_socio'];
                     for ($i=0; $i <count($datos) ; $i++) { 
-                  
-                     echo "<option value=".$datos[$i]["id"].">".$datos[$i]["nombre"]."</option><br>";
-                        
+                     if($datos[$i]["esSocio"]){   
+                     echo "<td>".$datos[$i]["id_socio"]."</td><td>".$datos[$i]["name"].$datos[$i]["surname"]."</td><td>".'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../activarSocio.php/?id_socioElegido='.$datos[$i]["id_socio"].'">Editar/Borrar</button></td></tr>'; //<td>" `<button class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php/?id_socioElegido='.$datos[$i]["id_socio"].'">Panel de Control</button>"</td><tr>";
+                     }else{
+                        echo "<td>".$datos[$i]["id_socio"]."</td><td>".$datos[$i]["name"].$datos[$i]["surname"]."</td><td>".'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../activarSocio.php/?id_socioElegido='.$datos[$i]["id_socio"].'&id_socio='.$id.'">Editar/Borrar</button></td><td><a href="activarSocio.php/?id_socioElegido='.$datos[$i]["id_socio"].'">Activar</a><td></tr>'; //<td>" `<button class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php/?id_socioElegido='.$datos[$i]["id_socio"].'">Panel de Control</button>"</td><tr>";   
+                     }
                     }
-                
-                ?>
-
-            </select> 
-                
-            <br>        
-              
-            <p id="confirmarBoton" ><input type="submit" name="submit" value="Borrar"></p>
-        </fieldset>
-        <?php 
-
-            include_once "databaseManagement.inc.php";
-                if(isset($_POST["submit"])){
-
-                $id=$_POST["idEvento"];
-    
-                 borrarEvento($id);   
-                 echo("<meta http-equiv='refresh' content='1'>"); //Refresh by HTTP 'meta'   
-            }
-            
-        ?>
-      </form>
+                ?> 
+            </table>    
       </div>
   </section>
-
 </main>
 
 <footer class="py-3 my-4 bg-secondary ">
@@ -122,5 +106,5 @@
   </section>
   </body>
   
-  
+
 </html>

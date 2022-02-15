@@ -17,7 +17,7 @@
   </head>
   <body>
  <section class="cuerpo">
-<header>
+ <header>
 <nav class="navbar navbar-dark header">
       <div class="container">
       <?php
@@ -28,10 +28,10 @@
             }else{
               $id=null;}
       ?>
-        <a class="navbar-brand" href='index-logged.php<?php echo('/?id_socio='.$id)  ?>'>CLUB SOCIAL</a>
-        <button class="myButton" onclick="window.location.href='../noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
-        <button class="myButton" onclick="window.location.href=''">Instalaciones</button>
-        <button class="myButton" onclick="window.location.href='../eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <a class="navbar-brand" href="#">CLUB SOCIAL</a>
+        <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
+        <button class="myButton" onclick="window.location.href='instalaciones.php<?php echo('/?id_socio='.$id)  ?>'">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
           include_once "databaseManagement.inc.php";
@@ -48,32 +48,42 @@
            
 
            if($result["esPresidente"]){
-            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="panelAdmin.php"  ">Panel de Control</button>';
-            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
+           // echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick="window.location.href='.'panelAdmin.php/?id_socio='.$id.'">Panel de Control</button>';
+           echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php/?id_socio='.$id.'">Panel de Control</button>';
+           echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
            }else{
             echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
            }
            
           } 
         ?>
+        
+      </div>
+    </nav>
 </header>
 
 <main>
   <section class="my-3">
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="editarNoticia.php<?php echo('/?id_socio='.$id)  ?>">Editar Noticia</a>
+        <a class="botonControl" href="../editarNoticia.php<?php echo('/?id_socio='.$id)  ?>">Editar Noticia</a>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <a class="botonControl" href="editarEventos.php<?php echo('/?id_socio='.$id)  ?>">Editar Evento</a>
+        <a class="botonControl" href="../editarEventos.php<?php echo('/?id_socio='.$id)  ?>">Editar Evento</a>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="botonControl" href="../gestionUsuarios.php<?php echo('/?id_socio='.$id)  ?>">Gestion Usuarios</a>
       </div>
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="insertarNoticias.php<?php echo('/?id_socio='.$id)  ?>">Insertar Noticias</a>
+        <a class="botonControl" href="../insertarNoticias.php<?php echo('/?id_socio='.$id)  ?>">Insertar Noticias</a>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <a class="botonControl" href="crearEvento.php<?php echo('/?id_socio='.$id)  ?>">Insertar Evento</a>
+        <a class="botonControl" href="../crearEvento.php<?php echo('/?id_socio='.$id)  ?>">Insertar Evento</a>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="botonControl" href="../crearInstalacion.php<?php echo('/?id_socio='.$id)  ?>">Crear Pista</a>
       </div>
       <div class="bg-light p-5 rounded">
-        <a class="botonControl" href="deleteNoticia.php<?php echo('/?id_socio='.$id)  ?>">Borrar Noticia</a>
+        <a class="botonControl" href="../deleteNoticia.php<?php echo('/?id_socio='.$id)  ?>">Borrar Noticia</a>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <a class="botonControl" href="borrarEvento.php<?php echo('/?id_socio='.$id)  ?>">Borrar Evento</a>
+        <a class="botonControl" href="../borrarEvento.php<?php echo('/?id_socio='.$id)  ?>">Borrar Evento</a>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="botonControl" href="../borrar_pista.php<?php echo('/?id_socio='.$id)  ?>">Borrar Pista</a>
       </div>
   </section>
 

@@ -1,7 +1,7 @@
 
 <html>
 <head>
-    <title>Borrar Evento</title>
+    <title>Borrar Pista</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,14 +68,14 @@
       <div class="bg-light p-5 rounded">
       <form method="post" action="">
         <fieldset>
-            <select id="idEvento" name="idEvento" required>
+            <select id="idpista" name="idpista" required>
                 <?php 
                  include_once "databaseManagement.inc.php";
-                 $datos=obtenerEventos();
+                 $datos=obtenerPistas();
                     
                     for ($i=0; $i <count($datos) ; $i++) { 
                   
-                     echo "<option value=".$datos[$i]["id"].">".$datos[$i]["nombre"]."</option><br>";
+                     echo "<option value=".$datos[$i]["id_pista"].">".$datos[$i]["nombre_pista"]."</option><br>";
                         
                     }
                 
@@ -92,9 +92,9 @@
             include_once "databaseManagement.inc.php";
                 if(isset($_POST["submit"])){
 
-                $id=$_POST["idEvento"];
-    
-                 borrarEvento($id);   
+                $id=$_POST["idpista"];
+                echo $id;    
+                 borrarPista($id);   
                  echo("<meta http-equiv='refresh' content='1'>"); //Refresh by HTTP 'meta'   
             }
             

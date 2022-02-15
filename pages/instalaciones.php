@@ -1,7 +1,8 @@
 
-<html>
-<head>
-    <title>Borrar Evento</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Eventos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,10 +13,8 @@
   </head>
   <style>
   <?php include '../css/index.css';
-        include '../css/bootstrap.min.css';
-  ?>
+  include '../css/bootstrap.min.css'; ?>
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <body>
  <section class="cuerpo">
  <header>
@@ -30,9 +29,9 @@
               $id=null;}
       ?>
         <a class="navbar-brand" href="#">CLUB SOCIAL</a>
-        <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
-        <button class="myButton" onclick="window.location.href='instalaciones.php<?php echo('/?id_socio='.$id)  ?>'">Instalaciones</button>
-        <button class="myButton" onclick="window.location.href='ventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
+        <button class="myButton" onclick="window.location.href='../noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
+        <button class="myButton" onclick="window.location.href=''">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='../eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
           include_once "databaseManagement.inc.php";
@@ -66,46 +65,53 @@
 <main>
   <section class="my-3">
       <div class="bg-light p-5 rounded">
-      <form method="post" action="">
-        <fieldset>
-            <select id="idEvento" name="idEvento" required>
-                <?php 
-                 include_once "databaseManagement.inc.php";
-                 $datos=obtenerEventos();
-                    
-                    for ($i=0; $i <count($datos) ; $i++) { 
-                  
-                     echo "<option value=".$datos[$i]["id"].">".$datos[$i]["nombre"]."</option><br>";
-                        
-                    }
+      <?php
+                //obtener lista instalaciones
                 
-                ?>
+                $usuario = "root";
+                $password = "root";
+                $servidor = "localhost";
+                $basededatos = "clubsocial";
+                //imprimir lista eventos
 
-            </select> 
-                
-            <br>        
-              
-            <p id="confirmarBoton" ><input type="submit" name="submit" value="Borrar"></p>
-        </fieldset>
-        <?php 
+                $conexion = mysqli_connect( $servidor, $usuario, $password ) or die ("No se ha podido conectar al servidor de Base de datos");
+                $db = mysqli_select_db( $conexion, $basededatos ) or die ( "No se ha podido conectar a la base de datos" );
 
-            include_once "databaseManagement.inc.php";
-                if(isset($_POST["submit"])){
-
-                $id=$_POST["idEvento"];
-    
-                 borrarEvento($id);   
-                 echo("<meta http-equiv='refresh' content='1'>"); //Refresh by HTTP 'meta'   
-            }
             
-        ?>
-      </form>
+                $consulta="SELECT `id_pista`, `tipo`, `precio_pista`, `nombre_pista`, `precio_noSocio` FROM `instalaciones` ";
+
+                $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+
+                /*while ($columna = mysqli_fetch_array( $resultado ))
+	            {
+                    echo($columna['nombre'].",".$columna['lugar'].",".$columna['fecha'].",".$columna['participantes'].",".$columna['id_usuario_creador'].",".$columna['hora']);
+                    echo("<br/>");
+                }*/
+
+
+                while ($columna = mysqli_fetch_array( $resultado ))
+	            {
+                    echo("<div id='evento' class='evento'>");
+                    echo("<p id='nombre_evento'>Nombre: ".$columna['nombre_pista']."</p>");
+                    echo("<p id='lugar_evento'>Tipo: ".$columna['tipo']."</p>");
+                    echo("<p id='hora_evento'>Precio Base: ".$columna['precio_pista']."</p>");
+                    echo("<p id='fecha_evento'>Precio No Socio: ".$columna['precio_noSocio']."</p>");
+                    echo("<button class='myButton'>Reservar</button>");
+                    //echo("<button>Ver evento</button>");
+                }
+
+
+
+
+                //imprimir boton de evento si es presi
+
+            ?>
       </div>
   </section>
 
 </main>
 
-<footer class="py-3 my-4 bg-secondary ">
+<footer class="py-3 my-4 bg-secondary fixed-bottom ">
   <ul class="nav justify-content-center border-bottom pb-3 mb-3">
     <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
     <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
@@ -121,6 +127,4 @@
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   </section>
   </body>
-  
-  
 </html>

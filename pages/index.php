@@ -15,7 +15,7 @@
   </head>
  
  
-<header>
+  <header>
 <nav class="navbar navbar-dark header">
       <div class="container">
       <?php
@@ -28,7 +28,7 @@
       ?>
         <a class="navbar-brand" href="#">CLUB SOCIAL</a>
         <button class="myButton" onclick="window.location.href='noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
-        <button class="myButton" onclick="window.location.href=''">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='instalaciones.php<?php echo('/?id_socio='.$id)  ?>'">Instalaciones</button>
         <button class="myButton" onclick="window.location.href='eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
@@ -46,14 +46,18 @@
            
 
            if($result["esPresidente"]){
-            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php"  ">Panel de Control</button>';
-            echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
+           // echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick="window.location.href='.'panelAdmin.php/?id_socio='.$id.'">Panel de Control</button>';
+           echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../panelAdmin.php/?id_socio='.$id.'">Panel de Control</button>';
+           echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
            }else{
             echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../index.php">Cerrar Sesion</button>';
            }
            
           } 
         ?>
+        
+      </div>
+    </nav>
 </header>
 
 <main>

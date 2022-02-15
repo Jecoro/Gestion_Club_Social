@@ -17,7 +17,7 @@ h1 {
     text-transform: uppercase;
 }
 
-label {
+label,select {
     width: 150px;
     display: inline-block;
     text-align: left;
