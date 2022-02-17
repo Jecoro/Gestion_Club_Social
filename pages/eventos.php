@@ -28,7 +28,7 @@
             }else{
               $id=null;}
       ?>
-        <a class="navbar-brand" href="#">CLUB SOCIAL</a>
+        <a class="navbar-brand" href='index.php'>CLUB SOCIAL</a>
         <button class="myButton" onclick="window.location.href='../noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
         <button class="myButton" onclick="window.location.href='../instalaciones.php<?php echo('/?id_socio='.$id)  ?>'">Instalaciones</button>
         <button class="myButton" onclick="window.location.href=''">Eventos</button>
@@ -97,7 +97,6 @@
                     echo("<p id='hora_evento'>Hora: ".$columna['hora']."</p>");
                     echo("<p id='fecha_evento'>Fecha: ".$columna['fecha']."</p>");
                     echo("<p id='participantes_evento'>Participantes: ".$columna['participantes']."</p>");
-                    echo("<button class='myButton'>Participar</button>");
                     //echo("<button>Ver evento</button>");
                 }
 

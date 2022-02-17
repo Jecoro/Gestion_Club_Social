@@ -114,6 +114,17 @@ input {
     background-size: 100% 100%;
 }
 
+.calendario{
+  margin-top: 2%;
+  margin-left: 25%;
+  margin-bottom: 2%;
+}
+
+.centradoCalendario{
+  text-align: center;
+  
+}
+
 .evento{
 	background-color: #42668b67;
 	padding: 5px;
@@ -123,5 +134,22 @@ input {
   font-size: larger;
   border-bottom: 2px solid #5174a16b;
 
+}
+table{
+  width: 50%;
+  text-align: center;
+  height: 40%;
 }       
+ table,td,th{
+   border: 1px solid black;
+ }
+th{
+  background-color: #3471a08c;
+}
+.dia{
+  background-color: #1570cd;
+}
+a{
+   color: white;
+}
 

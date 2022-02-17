@@ -96,7 +96,7 @@
                     echo("<p id='lugar_evento'>Tipo: ".$columna['tipo']."</p>");
                     echo("<p id='hora_evento'>Precio Base: ".$columna['precio_pista']."</p>");
                     echo("<p id='fecha_evento'>Precio No Socio: ".$columna['precio_noSocio']."</p>");
-                    echo("<button class='myButton'>Reservar</button>");
+                    echo'<button style="margin-right:3%;" class="myButton botonLogIn" onclick=window.location.href="../alquiler.php/?id_socio='.$id.'&id_pista='.$columna['id_pista'].'">Reservar</button>';
                     //echo("<button>Ver evento</button>");
                 }
 

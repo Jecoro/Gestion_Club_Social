@@ -29,7 +29,7 @@
       ?>
         <a class="navbar-brand" href="#">CLUB SOCIAL</a>
         <button class="myButton" onclick="window.location.href='../noticias.php<?php echo('/?id_socio='.$id)  ?>'">Noticias</button>
-        <button class="myButton" onclick="window.location.href=''">Instalaciones</button>
+        <button class="myButton" onclick="window.location.href='../instalaciones.php'">Instalaciones</button>
         <button class="myButton" onclick="window.location.href='../eventos.php<?php echo('/?id_socio='.$id)  ?>'">Eventos</button>
         <?php
           
